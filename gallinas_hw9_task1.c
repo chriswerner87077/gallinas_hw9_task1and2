@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 {
 	// Declare variables
 	float numbers[NUMELS];
-	FILE *outfile;
+	FILE *outFile;
 	// Call usage function if there are not two strings or if --helpis
 	// first string
 	if (argc != 3 || (strcmp(*(argv+1),"--help") == 0))
@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
 	// Call ReadFile funciton , passing the input file name and an array
 	// to stor info
 	ReadFile(*(argv+1),numbers);
-	outfile = OpenCheckFile(*(argv+2));
-	WriteFile(outfile, numbers);
+	outFile = OpenCheckFile(*(argv+2));
+	WriteFile(outFile, numbers);
 
 	return 0;
 }
@@ -56,28 +56,28 @@ void Usage(char** info)
 void ReadFile(char *fName, float num[])
 {
 	// Declare variables
-	FILE *infile;
+	FILE *inFile;
 	int i=0;
 	// Open file stream (filename corresponds to argv[1])
-	infile = fopen(fName,"r");
-	if (infile == NULL)
+	inFile = fopen(fName,"r");
+	if (inFile == NULL)
 	{
 		printf("The file, %s, could not be succesffully opened\n", fName);
 		printf("Please check spelling or if the file exists\n");
 		exit(1);
 	}
 	printf("The file has been successfully opened for reading\n");
-	while ((fscanf(infile,"%f",&num[i++])) != EOF)
+	while ((fscanf(inFile,"%f",&num[i++])) != EOF)
 		;
 	return;
 }
 FILE *OpenCheckFile(char *fName)
 {
 	// Declare variables
-	FILE *outfile1;
+	FILE *outFile1;
 	char ans;
 	// open file stream (filename will be argv[2]) 
-	if ((outfile1 = fopen(fName,"r")) != NULL)
+	if ((outFile1 = fopen(fName,"r")) != NULL)
 	{
 		printf("The file, %s, already exists.\n", fName);
 		printf("Do you want to overwrite it (y/n)?");
@@ -87,8 +87,8 @@ FILE *OpenCheckFile(char *fName)
 			exit(1);
 		}
 	}
-	outfile1 = fopen(fName,"w");
-	if (outfile1 == NULL)
+	outFile1 = fopen(fName,"w");
+	if (outFile1 == NULL)
 	{
 		printf("Failed to open file %s\n", fName);
 	}
@@ -96,13 +96,13 @@ FILE *OpenCheckFile(char *fName)
 	{
 		printf("The file %s has successfully been written.\n", fName);
 	}
-	return outfile1;
+	return outFile1;
 }
 void WriteFile(FILE *sFile, float num[])
 {
 	// Declare/Initialize variables
 	float sumnum = 0, avenum =0;
-	// print each member of the array into the outfile
+	// print each member of the array into the outFile
 	for (int i = 0; i < NUMELS; i++)
 	{
 		fprintf(sFile,"%6.4f\n", num[i]);
