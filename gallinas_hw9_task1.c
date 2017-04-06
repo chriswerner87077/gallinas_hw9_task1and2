@@ -20,6 +20,7 @@
 void Usage(char** info);
 void ReadFile(char *fName, float num[]);
 FILE *OpenCheckFile(char *fName);
+void WriteFile(FILE *sFile, float num[]);
 
 /* Main Program */
 int main(int argc, char *argv[])
@@ -37,10 +38,7 @@ int main(int argc, char *argv[])
 	// to stor info
 	ReadFile(*(argv+1),numbers);
 	outfile = OpenCheckFile(*(argv+2));
-	if (outfile != NULL)
-	{
-		printf("success");
-	}
+	WriteFile(outfile, numbers);
 
 	return 0;
 }
@@ -79,11 +77,7 @@ FILE *OpenCheckFile(char *fName)
 	FILE *outfile1;
 	char ans;
 	// open file stream (filename will be argv[2]) 
-	if ((outfile1 = fopen(fName,"r"))== NULL)
-	{
-		printf("The file, %s, does not yet exist.\n", fName);
-	}
-	else
+	if ((outfile1 = fopen(fName,"r")) != NULL)
 	{
 		printf("The file, %s, already exists.\n", fName);
 		printf("Do you want to overwrite it (y/n)?");
@@ -94,8 +88,34 @@ FILE *OpenCheckFile(char *fName)
 		}
 	}
 	outfile1 = fopen(fName,"w");
-
+	if (outfile1 == NULL)
+	{
+		printf("Failed to open file %s\n", fName);
+	}
+	else
+	{
+		printf("The file %s has successfully been written.\n", fName);
+	}
 	return outfile1;
+}
+void WriteFile(FILE *sFile, float num[])
+{
+	// Declare/Initialize variables
+	float sumnum = 0, avenum =0;
+	// print each member of the array into the outfile
+	for (int i = 0; i < NUMELS; i++)
+	{
+		fprintf(sFile,"%6.4f\n", num[i]);
+		// Calculate the sum of all values
+		sumnum += num[i];
+	}
+	// Calculate the average of the values
+	avenum = sumnum/NUMELS;
+	fprintf(sFile, "---------\n");
+	fprintf(sFile, "Total: %6.4f\n", sumnum);
+	fprintf(sFile, "Avg: %6.4f\n", avenum);
+
+	return;
 }
 
 
