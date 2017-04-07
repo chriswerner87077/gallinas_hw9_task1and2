@@ -15,13 +15,14 @@
 #include <stdlib.h>
 
 /* Function Prototypes */
+void ReadFile( char *fName, float table[][]);
 
 /* Main Program */
 int main(int argc, char *argv[])
 {
 	FILE *inFile; // file pointer
-	//int alt; // altitude (X COL)
-	//int ozone; // oz mix ratio (Y COL)
+	int alt[4]; // altitude (X COL)
+	int ozone[5]; // oz mix ratio (Y COL)
 	//int data[4][2]; // 2D Array in file.tct
 
 	inFile = fopen("zone1.txt", "r"); // read
@@ -29,6 +30,7 @@ int main(int argc, char *argv[])
 	if(inFile == NULL)
 	{
 		printf("The file was not successfully opened.\n");
+		printf("Please include the zone1.txt in your current folder.\n");
 
 		exit(1); // replase this with usage
 	}
@@ -39,5 +41,10 @@ int main(int argc, char *argv[])
 
 
 /* Function Defenitions */
+void ReadFile( char *fName, float table[][])
+{
+
+	return;
+}
 
 
