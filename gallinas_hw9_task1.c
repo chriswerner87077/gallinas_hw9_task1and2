@@ -75,17 +75,25 @@ FILE *OpenCheckFile(char *fName)
 {
 	// Declare variables
 	FILE *outFile1;
-	char ans;
+	char ans, enterkey;
 	// open file stream (filename will be argv[2]) 
 	if ((outFile1 = fopen(fName,"r")) != NULL)
 	{
 		printf("The file, %s, already exists.\n", fName);
-		printf("Do you want to overwrite it (y/n)?");
-		scanf("%c", &ans);
-		if (ans == 'n')
-		{
-			exit(1);
-		}
+		printf("Do you want to overwrite it (y/n)?\n");
+		do
+		{	
+			scanf("%c", &ans);
+			scanf("%c", &enterkey);
+			if (ans == 'n')
+			{
+				exit(1);
+			}
+			else if (ans != 'y')
+			{
+				printf("Could not recognize your input. Try again. (y/n)\n");
+			}
+		}while(ans != 'y');
 	}
 	outFile1 = fopen(fName,"w");
 	if (outFile1 == NULL)
