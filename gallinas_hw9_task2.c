@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 	ReadFile("zone1.txt", totaldata);
 	OrganizeData(totaldata, x, y);
 	RangeofX(x);
+	printf("Linear Model:\n");
 	MathSlope(x,y);
 	MathYInt(x,y);
 	
@@ -98,7 +99,7 @@ void RangeofX( int xval[])
 
 		}
 	}
-	printf("The range of altitude is: %d to %d\n", xmin, xmax);
+	printf("The range of altitude [in km] is: %d to %d\n", xmin, xmax);
 
 	return;
 }
@@ -143,7 +144,7 @@ void MathYInt( int xval[], int yval[])
 	yIntn = ( (SumX*SumXY) - (SumX2 * SumY) );
 	yIntd = ( (SumX*SumX) - (n*SumX2) );
 	yInt = yIntn/yIntd;
-	printf("Altitude: %.2f\n",yInt);
+	printf("Altitude Int.: %.2f\n",yInt);
 
 	
 	return;
