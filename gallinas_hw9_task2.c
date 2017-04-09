@@ -14,18 +14,21 @@
 #include <stdio.h>		/* For Standard I/O */
 #include <stdlib.h>
 
+#define RANGE 5
+#define DATA 8
 /* Function Prototypes */
 void ReadFile( char *fName, int data[]);
 void OrganizeData( int data[], int xval[], int yval[]);
+void RangeofX( int xval[]);
 /* Main Program */
 int main(int argc, char *argv[])
 {
-	int totaldata[8];
-	int x[4]; // altitude
-	int y[4]; // ozone mix ratio
+	int totaldata[DATA];
+	int x[RANGE]; // altitude
+	int y[RANGE]; // ozone mix ratio
 	ReadFile("zone1.txt", totaldata);
 	OrganizeData(totaldata, x, y);
-
+	RangeofX(x); 
 
 	return 0;
 }
@@ -61,7 +64,7 @@ void OrganizeData( int data[], int xval[], int yval[])
 {
 
 	int i;
-	for( i = 0; i < 4; i++)
+	for( i = 0; i < RANGE - 1; i++)
 	{
 	xval[i] = *data;
 	data++;
@@ -73,4 +76,25 @@ void OrganizeData( int data[], int xval[], int yval[])
 	return;
 }
 
+void RangeofX( int xval[])
+{
+	int xmin = xval[0];
+	int xmax = xval[0];
+
+	for(int i = 1; i < RANGE - 1; i++)
+	{
+		if( xmin > xval[i])
+			{
+				xmin = xval[i];
+			}
+		if( xmax < xval[i])
+		{
+				xmax = xval[i];
+
+		}
+	}
+	printf("The range of altitude is: %d to %d\n", xmin, xmax);
+
+	return;
+}
 
