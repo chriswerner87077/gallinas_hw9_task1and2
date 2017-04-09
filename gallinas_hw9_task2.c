@@ -16,14 +16,16 @@
 
 /* Function Prototypes */
 void ReadFile( char *fName, int data[]);
-
+void OrganizeData( int data[], int xval[], int yval[]);
 /* Main Program */
 int main(int argc, char *argv[])
 {
 	int totaldata[8];
-	//int x[4]; // altitude
-	//int y[4]; // ozone mix ratio
+	int x[4]; // altitude
+	int y[4]; // ozone mix ratio
 	ReadFile("zone1.txt", totaldata);
+	OrganizeData(totaldata, x, y);
+
 
 	return 0;
 }
@@ -47,13 +49,28 @@ void ReadFile( char *fName, int data[])
 
 	while( (fscanf(inFile, "%d", &data[i++]) ) != EOF)
 		;
-	for(i = 0; i < 8; i++)
-	{
-		printf("data[%d] = %d\n", i, data[i]);
-	}
+	//for(i = 0; i < 8; i++)
+	//{
+	//	printf("data[%d] = %d\n", i, data[i]);
+	//}
 	
 	return;
 }
 
+void OrganizeData( int data[], int xval[], int yval[])
+{
+
+	int i;
+	for( i = 0; i < 4; i++)
+	{
+	xval[i] = *data;
+	data++;
+	yval[i] = *data;
+	data++;
+	//printf("xval[%d] = %d\n", i, xval[i]);
+	//printf("yval[%d] = %d\n", i, yval[i]);
+	}
+	return;
+}
 
 
