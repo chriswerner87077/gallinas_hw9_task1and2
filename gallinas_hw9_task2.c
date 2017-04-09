@@ -15,34 +15,26 @@
 #include <stdlib.h>
 
 /* Function Prototypes */
-void *ReadFile( char *fName);
+void ReadFile( char *fName, int data[]);
 
 /* Main Program */
 int main(int argc, char *argv[])
 {
-	FILE* txtfile;
-	//int alt[4]; // altitude (X COL)
-	//int ozone[4]; // oz mix ratio (Y COL)
-	//int data[4][2]; // 2D Array in file.tct
-	txtfile = ReadFile("zone1.txt");
-	if(txtfile == NULL)
-	{
-		printf("The file was not successfully opened.\n");
-		printf("Please include the zone1.txt in your current folder.\n");
+	int totaldata[8];
+	//int x[4]; // altitude
+	//int y[4]; // ozone mix ratio
+	ReadFile("zone1.txt", totaldata);
 
-		exit(1); // replase this with usage
-	}
-	printf("The file was successfully opened.\n");
-	
 	return 0;
 }
 
 
 /* Function Defenitions */
-void *ReadFile( char *fName)
+void ReadFile( char *fName, int data[])
 {
 	FILE *inFile; // file pointer
 	inFile = fopen(fName, "r"); // read
+	int i = 0;
 
 	if(inFile == NULL)
 	{
@@ -53,7 +45,15 @@ void *ReadFile( char *fName)
 	}
 	printf("The file was successfully opened.\n");
 
-	return inFile;
+	while( (fscanf(inFile, "%d", &data[i++]) ) != EOF)
+		;
+	for(i = 0; i < 8; i++)
+	{
+		printf("data[%d] = %d\n", i, data[i]);
+	}
+	
+	return;
 }
+
 
 
